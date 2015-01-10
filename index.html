@@ -76,8 +76,7 @@
           <input type="text" data-edit="inserttext" id="voiceBtn" x-webkit-speech="">
         </div><!--Toolbar End  -->
         <div id="editor">
-              <font face="Zawgyi-One">ျမန္မာစာ ေဖာင့္ျဖစ္ေသာ ေဇာ္ဂ်ီ ႏွင့္ ျမန္မာ ယူနီကုဒ္ ႏွစ္မ်ဳိးလံုးကို အသံုးျပဳႏိုင္သည့္ WYSIWYG စာတည္းျဖတ္မႈေဆာ့ဝဲ။</font><br />
-              <p style="font-family:Zawgyi-One"><br></p>
+              <p style="font-family:Zawgyi-One">ျမန္မာစာ ေဖာင့္ျဖစ္ေသာ ေဇာ္ဂ်ီ ႏွင့္ ျမန္မာ ယူနီကုဒ္ ႏွစ္မ်ဳိးလံုးကို အသံုးျပဳႏိုင္သည့္ WYSIWYG စာတည္းျဖတ္မႈေဆာ့ဝဲ။</p>
               <blockquote>
                   <p style="font-family:Zawgyi-One">ေဇာ္က ကေနသည္။<br>Zaw Gyi One<br></p>
               </blockquote>
@@ -112,7 +111,17 @@
     </div>
     <script>
       $(function(){
-    	$('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
+            function showErrorAlert (reason, detail) {
+            var msg='';
+            if (reason==='unsupported-file-type') { 
+                     msg = "Unsupported format " +detail; 
+               }
+            else {
+              console.log("error uploading file", reason, detail);
+            }
+            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>'+'<strong>File upload error</strong> '+msg+' </div>').prependTo('#alerts');
+            };
+            $('#editor').wysiwyg({ fileUploadError: showErrorAlert} );
       });
     </script>
 </body>
